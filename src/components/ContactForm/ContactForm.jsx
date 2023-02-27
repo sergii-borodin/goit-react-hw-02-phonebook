@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 export default class ContactForm extends Component {
@@ -7,11 +7,9 @@ export default class ContactForm extends Component {
       contactName: '',
       telNumber: '',
     }
-//   static propTypes = {second: third}
 
     addName = (e) => {
-    const newName = e.currentTarget.value;
-    // console.log(newName);
+    const newName = e.currentTarget.value;      
     this.setState({ contactName: newName })
     }
   
@@ -22,12 +20,18 @@ export default class ContactForm extends Component {
   
    onSubmit = (e) => {
     e.preventDefault();
-    //  const newContact = e.currentTarget.firstChild.value;
-    //        console.log(newContact);
-     this.props.onSubmit(this.state.contactName,
+     
+     const isAlreadyInContactList = this.props.existedContacts.find(contact => contact.name.toLowerCase() === this.state.contactName.toLocaleLowerCase());
+    
+     isAlreadyInContactList ? alert('This contact is already existed') : this.props.onSubmit(this.state.contactName,
        this.state.telNumber);
+     
+     this.setState({
+      contactName: '',
+      telNumber: '',
+    })
 }
-  
+
   render() {
     return (
       <form onSubmit={this.onSubmit}
@@ -37,7 +41,8 @@ export default class ContactForm extends Component {
         alignItems: 'center',
       }}>
         <label>
-          Name : <input
+          Name : 
+       <input
   type="text"
   name="name"
   value={this.state.contactName}
@@ -48,7 +53,7 @@ export default class ContactForm extends Component {
         />
         </label>
         <label>
-          Tel. <input
+          Tel : <input
   type="tel"
           name="number"
           value={this.state.telNumber}
@@ -62,4 +67,15 @@ export default class ContactForm extends Component {
       </form>
     )
   }
+}
+
+ContactForm.propTypes = {
+  addContact: PropTypes.func.isRequired,
+  existedContacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string,
+      number: PropTypes.string,
+    })
+  ),
 }
