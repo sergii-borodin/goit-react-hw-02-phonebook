@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { Form , SubmitButton} from './ContactForm.styled'
 
 export default class ContactForm extends Component {
 
@@ -34,26 +35,20 @@ export default class ContactForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}
-        style={{
-      display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}>
+      <Form onSubmit={this.onSubmit}>
         <label>
-          Name : 
-       <input
+          Name <input
   type="text"
   name="name"
   value={this.state.contactName}
   onChange={this.addName}
   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
         </label>
         <label>
-          Tel : <input
+          Tel <input
   type="tel"
           name="number"
           value={this.state.telNumber}
@@ -63,14 +58,14 @@ export default class ContactForm extends Component {
   required
 />
         </label>
-        <button type="submit">Add Contact</button>
-      </form>
+        <SubmitButton type="submit">Add Contact</SubmitButton>
+      </Form>
     )
   }
 }
 
 ContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
+  addContact: PropTypes.func,
   existedContacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,

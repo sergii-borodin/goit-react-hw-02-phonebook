@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { PlainText } from './Contact.styled'
 
 const Contact = ({contact, children}) => {
   return (
     <>
-        <p>{contact.name}</p>
-        <p>{contact.number}</p>
+        <PlainText>{contact.name}</PlainText>
+        <PlainText>{contact.number}</PlainText>
         {children}
     </>
   )
